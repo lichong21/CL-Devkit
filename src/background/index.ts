@@ -23,6 +23,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         })
       } else {
         console.error('无法获取当前标签页ID')
+        
       }
     })
   }
