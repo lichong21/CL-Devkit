@@ -1,6 +1,10 @@
 <template>
 	<div>
-		<h1>选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面</h1>
+		<h1>
+			选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面
+			选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面
+			选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面选项页面
+		</h1>
 	</div>
 </template>
 
@@ -11,7 +15,9 @@
 
 	onMounted(() => {
 		console.log('options page mounted')
+		console.log('options page mounted1111111')
 	})
+
 </script>
 
 <style scoped>

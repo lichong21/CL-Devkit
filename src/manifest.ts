@@ -1,4 +1,4 @@
-
+import { isDev, PORT } from '../scripts/utils.ts'
 
 const manifest = {
 	"manifest_version": 3,
@@ -13,7 +13,7 @@ const manifest = {
 		"sidePanel",
 		"contextMenus"
 	],
-	"host_permissions": [],
+  "host_permissions": ["*://*/*"],
 	"icons": {
 		"16": "./icons/icon-16.png",
 		"32": "./icons/icon-32.png",
@@ -29,7 +29,13 @@ const manifest = {
 	},
 	"side_panel": {
 		"default_path": "./src/sidePanel/index.html"
-	}
+	},
+  content_security_policy: {
+    extension_pages: isDev()
+      // this is required on dev for Vite script to load
+      ? `script-src \'self\' http://localhost:${PORT}; object-src \'self\'`
+      : 'script-src \'self\'; object-src \'self\'',
+  },
 }
 export {
 	manifest

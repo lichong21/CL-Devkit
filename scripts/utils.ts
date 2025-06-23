@@ -18,8 +18,5 @@ export function getPath(metaUrl: string): IGetPath {
 
 export const isDev = () => process.env.NODE_ENV !== 'production'
 
-export const resolvePath = (...args: string[]) => {
-  const targetPath = path.resolve(__dirname, '..', ...args)
-  console.log('resolvePath - targetPath', targetPath)
-  return targetPath
-}
+export const PORT = 5173
+// export const getViteServerUrl = () => `http://localhost:${PORT}`

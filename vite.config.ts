@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
-import { getPath } from './scripts/utils.ts'
+import { getPath, PORT } from './scripts/utils.ts'
 
 const { __dirname } = getPath(import.meta.url)
-
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  // 开发服务器配置
+  server: {
+    port: PORT,
+    open: false,
+  },
   build: {
     outDir: 'dist',
     rollupOptions: {

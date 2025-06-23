@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>浏览器扩展开发预览</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 2rem;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 1rem;
+    }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .link-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 6px;
+      border: 1px solid #e9ecef;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.2s ease;
+    }
+    .link-card:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .link-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: #495057;
+    }
+    .link-card p {
+      margin: 0;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 浏览器扩展开发预览</h1>
+    <p>欢迎来到你的浏览器扩展开发环境！选择下面的链接来预览扩展的不同部分：</p>
+    
+    <div class="link-grid">
+      <a href="/src/popup/index.html" class="link-card">
+        <h3>📱 弹出窗口 (Popup)</h3>
+        <p>扩展图标点击时显示的弹出窗口界面</p>
+      </a>
+      
+      <a href="/src/options/index.html" class="link-card">
+        <h3>⚙️ 选项页面 (Options)</h3>
+        <p>扩展的设置和配置页面</p>
+      </a>
+      
+      <a href="/src/sidePanel/index.html" class="link-card">
+        <h3>📋 侧边栏 (Side Panel)</h3>
+        <p>浏览器侧边栏中的扩展界面</p>
+      </a>
+    </div>
+    
+    <div style="margin-top: 2rem; padding: 1rem; background: #fff3cd; border-radius: 4px; border-left: 4px solid #ffc107;">
+      <strong>💡 提示：</strong> 这个页面仅用于开发预览。实际的浏览器扩展将在安装后通过不同的方式访问这些页面。
+    </div>
+  </div>
+</body>
+</html> 
