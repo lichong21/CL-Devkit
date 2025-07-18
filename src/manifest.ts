@@ -30,6 +30,15 @@ const manifest = {
 	"side_panel": {
 		"default_path": "./src/sidePanel/index.html"
 	},
+  "commands": {
+    "open-popup": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+P",
+        "mac": "Command+Shift+P"
+      },
+      "description": "打开扩展的弹出窗口"
+    }
+  },
   content_security_policy: {
     extension_pages: isDev()
       // this is required on dev for Vite script to load

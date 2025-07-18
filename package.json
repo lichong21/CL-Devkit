@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run clean && cross-env NODE_ENV=development && npm run build && run-p dev:*",
     "dev:prepare": "esno scripts/prepare.ts",
-    "dev:background": "npm run build:background --  --mode development",
+    "dev:background": "vite build --config vite.config.background.ts --mode development --watch",
     "dev1:content": "npm run build:content -- --mode development",
     "dev:web": "vite --config vite.config.ts",
     "lint": "eslint . --ext js,ts,vue --report-unused-disable-directives",
