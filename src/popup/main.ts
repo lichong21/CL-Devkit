@@ -1,6 +1,11 @@
+
+import 'virtual:uno.css'
+
 import { createApp } from 'vue'
-// 添加类型声明以解决模块导入问题
+import ArcoVue from '@arco-design/web-vue';
 import App from './index.vue';
+import '@arco-design/web-vue/dist/arco.css';
 
-
-createApp(App).mount('#app')
+const app = createApp(App);
+app.use(ArcoVue);
+app.mount('#app');
