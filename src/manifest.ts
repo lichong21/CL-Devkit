@@ -30,6 +30,10 @@ const manifest = {
 	"side_panel": {
 		"default_path": "./src/sidePanel/index.html"
 	},
+	// 地址栏关键词触发
+  "omnibox": {
+    "keyword": "ext"
+  },
   "commands": {
     "open-popup": {
       "suggested_key": {
@@ -37,7 +41,21 @@ const manifest = {
         "mac": "Command+Shift+P"
       },
       "description": "打开扩展的弹出窗口"
-    }
+    },
+    "open-options-page": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+O",
+        "mac": "Command+Shift+O"
+      },
+      "description": "打开扩展的选项页面"
+    },
+		"open-side-panel": {
+			"suggested_key": {
+				"default": "Ctrl+Shift+S",
+				"mac": "Command+Shift+S"
+			},
+			"description": "打开扩展的侧边栏"
+		}
   },
   content_security_policy: {
     extension_pages: isDev()

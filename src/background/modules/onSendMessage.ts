@@ -1,63 +1,50 @@
+import { handleOpenSidePanel } from "../utils";
+
 function startListenSendMessage() {
-  console.log("openSidebar");
+  console.log("startListenSendMessage");
+  
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    console.log(
-      "chrome.runtime.onMessage message",
-      message,
-      sender,
-      sendResponse
-    );
+    console.log("接收到消息:", message, "发送者:", sender);
 
-    // 打开options页面
-    if (message.action === "open-options-page") {
-      // 如果有actionType参数，构建URL查询参数
-      if (message.actionType) {
-        // 将参数存储到chrome.storage.local，然后打开Options页面
-        const optionsData = {
-          actionType: message.actionType,
-          params: message.params || {},
-          timestamp: Date.now()
-        };
-
-        console.log("optionsData", optionsData);
-        
-        chrome.storage.local.set({ optionsData }, () => {
-          console.log("chrome.storage.local.set", optionsData);
-          chrome.runtime.openOptionsPage();
-        });
-      } else {
-        console.log("没有参数时，直接打开Options页面");
-        // 没有参数时，直接打开Options页面
-        chrome.runtime.openOptionsPage();
-      }
+    switch (message.action) {
+      case "open-options-page":
+        handleOpenOptionsPage(message);
+        break;
+      case "open-sidebar-page":
+        console.log("通过消息打开侧边栏");
+        handleOpenSidePanel();
+        break;
+      default:
+        console.log("未知的消息动作:", message.action);
     }
-
-    // 打开侧边栏页面
-    if (message.action === "open-sidebar-page") {
-      console.log("chrome.sidePanel.open", message, sender);
-
-      // 获取当前活动的标签页
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        console.log("打开侧边栏tabs11111111", tabs);
-        if (tabs.length > 0 && tabs[0].id) {
-          console.log("找到当前标签页ID:", tabs[0].id);
-          chrome.sidePanel
-            .open({
-              tabId: tabs[0].id
-            })
-            .then(() => {
-              console.log("侧边栏已成功打开");
-            })
-            .catch((error) => {
-              console.error("打开侧边栏失败:", error);
-            });
-        } else {
-          console.error("无法获取当前标签页ID");
-        }
-      });
-    }
+    
     return true;
   });
+}
+
+// 处理打开选项页面的逻辑
+function handleOpenOptionsPage(message: any) {
+  console.log("处理打开选项页面请求");
+  
+  // 如果有actionType参数，构建URL查询参数
+  if (message.actionType) {
+    // 将参数存储到chrome.storage.local，然后打开Options页面
+    const optionsData = {
+      actionType: message.actionType,
+      params: message.params || {},
+      timestamp: Date.now()
+    };
+
+    console.log("保存选项页面数据:", optionsData);
+    
+    chrome.storage.local.set({ optionsData }, () => {
+      console.log("选项页面数据已保存，正在打开页面");
+      chrome.runtime.openOptionsPage();
+    });
+  } else {
+    console.log("没有参数时，直接打开选项页面");
+    chrome.runtime.openOptionsPage();
+  }
 }
 
 export { startListenSendMessage };
