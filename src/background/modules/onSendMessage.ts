@@ -10,7 +10,26 @@ function startListenSendMessage() {
 
     // 打开options页面
     if (message.action === "open-options-page") {
-      chrome.runtime.openOptionsPage();
+      // 如果有actionType参数，构建URL查询参数
+      if (message.actionType) {
+        // 将参数存储到chrome.storage.local，然后打开Options页面
+        const optionsData = {
+          actionType: message.actionType,
+          params: message.params || {},
+          timestamp: Date.now()
+        };
+
+        console.log("optionsData", optionsData);
+        
+        chrome.storage.local.set({ optionsData }, () => {
+          console.log("chrome.storage.local.set", optionsData);
+          chrome.runtime.openOptionsPage();
+        });
+      } else {
+        console.log("没有参数时，直接打开Options页面");
+        // 没有参数时，直接打开Options页面
+        chrome.runtime.openOptionsPage();
+      }
     }
 
     // 打开侧边栏页面
