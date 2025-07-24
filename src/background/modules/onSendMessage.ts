@@ -3,7 +3,7 @@ import { handleOpenSidePanel } from "../utils";
 function startListenSendMessage() {
   console.log("startListenSendMessage");
   
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  chrome.runtime.onMessage.addListener((message, sender, _sendResponse) => {
     console.log("接收到消息:", message, "发送者:", sender);
 
     switch (message.action) {
@@ -12,6 +12,16 @@ function startListenSendMessage() {
         break;
       case "open-sidebar-page":
         console.log("通过消息打开侧边栏");
+        handleOpenSidePanel();
+        break;
+      case "openPopup":
+        handleOpenPopup();
+        break;
+      case "openOptions":
+        handleOpenOptionsPage(message);
+        break;
+      case "openSidePanel":
+        console.log("通过悬浮球打开侧边栏");
         handleOpenSidePanel();
         break;
       default:
@@ -45,6 +55,12 @@ function handleOpenOptionsPage(message: any) {
     console.log("没有参数时，直接打开选项页面");
     chrome.runtime.openOptionsPage();
   }
+}
+
+// 处理打开弹窗的逻辑
+function handleOpenPopup() {
+  console.log("处理打开弹窗请求");
+  chrome.action.openPopup();
 }
 
 export { startListenSendMessage };

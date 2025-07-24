@@ -40,7 +40,7 @@ function startListenContextMenus() {
   })
 
   // 监听右键菜单点击事件
-  chrome.contextMenus.onClicked.addListener((info, tab) => {
+  chrome.contextMenus.onClicked.addListener((info, _tab) => {
     console.log('Context menu clicked:', info.menuItemId)
     
     switch (info.menuItemId) {

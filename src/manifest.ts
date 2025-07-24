@@ -30,6 +30,13 @@ const manifest = {
 	"side_panel": {
 		"default_path": "./src/sidePanel/index.html"
 	},
+	"content_scripts": [
+		{
+			"matches": ["*://*/*"],
+			"js": ["./content/index.js"],
+			"run_at": "document_end"
+		}
+	],
 	// 地址栏关键词触发
   "omnibox": {
     "keyword": "ext"
