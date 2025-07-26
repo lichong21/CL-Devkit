@@ -26,11 +26,12 @@
 <script setup lang="ts">
 	import { onMounted } from 'vue'
 	import { Button, Space, Message } from '@arco-design/web-vue'
+	import { OPTIONS_TYPE, MESSAGE_ACTION } from '../constant/index'
 
 	// 通用的打开Options页面方法，可以携带参数
 	const openOptionsPageWithParams = (actionType?: string, params?: any) => {
 		(window as any).chrome.runtime.sendMessage({ 
-			action: 'open-options-page',
+			action: MESSAGE_ACTION.OPEN_OPTIONS,
 			actionType,
 			params
 		})
@@ -57,7 +58,7 @@
 		console.log('handleJsonFormat')
 		Message.info('JSON 格式化')
 		// 打开options页面，携带JSON格式化的参数
-		openOptionsPageWithParams('json-format', { 
+		openOptionsPageWithParams(OPTIONS_TYPE.JSON_FORMAT, { 
 			title: 'JSON 格式化工具',
 			description: '美化和格式化 JSON 数据'
 		})
@@ -67,7 +68,7 @@
 		console.log('handleJsonCompress')
 		Message.info('JSON 压缩')
 		// 打开options页面，携带JSON压缩的参数
-		openOptionsPageWithParams('json-compress', { 
+		openOptionsPageWithParams(OPTIONS_TYPE.JSON_COMPRESS, { 
 			title: 'JSON 压缩工具',
 			description: '压缩 JSON 数据，移除空格和换行'
 		})
@@ -77,7 +78,7 @@
 		console.log('handleJsonCheck')
 		Message.info('JSON 校验')
 		// 打开options页面，携带JSON校验的参数
-		openOptionsPageWithParams('json-check', { 
+		openOptionsPageWithParams(OPTIONS_TYPE.JSON_CHECK, { 
 			title: 'JSON 校验工具',
 			description: '检查 JSON 数据的格式是否正确'
 		})

@@ -1,77 +1,19 @@
 <template>
 	<div class="options-page">
-		<div class="header">
+		<!-- <div class="header">
 			<h1>{{ pageTitle }}</h1>
 			<p class="description">{{ pageDescription }}</p>
-		</div>
+		</div> -->
 
-		<div class="content">
-			<!-- JSON 格式化页面 -->
-			<div v-if="currentAction === 'json-format'" class="action-panel">
-				<JSONFormat />
-			</div>
+		<JSONFormat v-if="currentAction === OPTIONS_TYPE.JSON_FORMAT" />
 
-			<!-- JSON 压缩页面 -->
-			<div v-else-if="currentAction === 'json-compress'" class="action-panel">
-				<div class="json-compress-panel">
-					<h3>JSON 压缩工具</h3>
-					<textarea 
-						v-model="compressInput" 
-						placeholder="请输入要压缩的 JSON 数据"
-						class="input-textarea"
-					></textarea>
-					<button @click="compressJson" class="action-button">压缩 JSON</button>
-					<textarea 
-						v-model="compressOutput" 
-						placeholder="压缩后的结果将显示在这里"
-						class="output-textarea"
-						readonly
-					></textarea>
-				</div>
-			</div>
-
-			<!-- JSON 校验页面 -->
-			<div v-else-if="currentAction === 'json-check'" class="action-panel">
-				<div class="json-check-panel">
-					<h3>JSON 校验工具</h3>
-					<textarea 
-						v-model="checkInput" 
-						placeholder="请输入要校验的 JSON 数据"
-						class="input-textarea"
-					></textarea>
-					<button @click="checkJson" class="action-button">校验 JSON</button>
-					<div class="check-result" :class="{ 'valid': isValid, 'invalid': !isValid && checkResult }">
-						{{ checkResult }}
-					</div>
-				</div>
-			</div>
-
-			<!-- 默认首页 -->
-			<div v-else class="default-panel">
-				<h3>欢迎使用扩展工具</h3>
-				<p>请通过弹出窗口选择要使用的功能。</p>
-				<div class="feature-list">
-					<div class="feature-item">
-						<h4>JSON 格式化</h4>
-						<p>美化和格式化 JSON 数据，提高可读性</p>
-					</div>
-					<div class="feature-item">
-						<h4>JSON 压缩</h4>
-						<p>压缩 JSON 数据，移除多余的空格和换行</p>
-					</div>
-					<div class="feature-item">
-						<h4>JSON 校验</h4>
-						<p>检查 JSON 数据的格式是否正确</p>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 	import { ref, onMounted } from 'vue'
 	import JSONFormat from './components/JSONFormat/index.vue'
+	import { OPTIONS_TYPE } from '../constant/index'
 
 	const currentAction = ref<string>('')
 	const pageTitle = ref<string>('扩展选项')
@@ -100,7 +42,7 @@
 					}
 
 					// 清除已使用的数据
-					chrome.storage.local.remove(['optionsData'])
+					// chrome.storage.local.remove(['optionsData'])
 				}
 			})
 		}

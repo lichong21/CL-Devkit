@@ -1,4 +1,5 @@
 import { handleOpenSidePanel } from "../utils";
+import { MESSAGE_ACTION } from "../../constant/index";
 
 function startListenSendMessage() {
   console.log("startListenSendMessage");
@@ -7,22 +8,15 @@ function startListenSendMessage() {
     console.log("接收到消息:", message, "发送者:", sender);
 
     switch (message.action) {
-      case "open-options-page":
+      case MESSAGE_ACTION.OPEN_OPTIONS:
         handleOpenOptionsPage(message);
         break;
-      case "open-sidebar-page":
+      case MESSAGE_ACTION.OPEN_SIDE_PANEL:
         console.log("通过消息打开侧边栏");
         handleOpenSidePanel();
         break;
-      case "openPopup":
+      case MESSAGE_ACTION.OPEN_POPUP:
         handleOpenPopup();
-        break;
-      case "openOptions":
-        handleOpenOptionsPage(message);
-        break;
-      case "openSidePanel":
-        console.log("通过悬浮球打开侧边栏");
-        handleOpenSidePanel();
         break;
       default:
         console.log("未知的消息动作:", message.action);
