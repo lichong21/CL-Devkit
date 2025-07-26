@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
-import { Message } from '@arco-design/web-vue'
 
 // 响应式状态
 const ballRef = ref<HTMLElement>()
@@ -160,47 +159,6 @@ const hideMenuDelayed = () => {
   }, 300)
 }
 
-const clearHideTimer = () => {
-  if (hideTimer) {
-    clearTimeout(hideTimer)
-    hideTimer = null
-  }
-}
-
-// 消息发送优化
-const sendMessage = (action: string) => {
-  try {
-    chrome.runtime.sendMessage({ action })
-  } catch (error) {
-    console.error(`[Extension] 发送消息失败 (${action}):`, error)
-  }
-}
-
-const openPopup = () => {
-  sendMessage('openPopup')
-  showMenu.value = false
-}
-
-const openOptions = () => {
-  sendMessage('openOptions')
-  showMenu.value = false
-}
-
-const openSidePanel = () => {
-  sendMessage('openSidePanel')
-  showMenu.value = false
-}
-
-// 测试Arco Design组件
-const showArcoMessage = () => {
-  // 由于在Shadow DOM中，需要导入Message组件
-  Message.success({
-    content: 'Arco Design在Content Script中工作正常！',
-    duration: 3000
-  })
-  
-  showMenu.value = false
-}
 
 // 窗口大小改变处理
 const handleResize = () => {

@@ -48,27 +48,6 @@
 		}
 	}
 
-	// JSON 压缩功能
-	const compressJson = () => {
-		try {
-			const parsed = JSON.parse(compressInput.value)
-			compressOutput.value = JSON.stringify(parsed)
-		} catch (error) {
-			compressOutput.value = `错误: ${error instanceof Error ? error.message : '无效的 JSON 格式'}`
-		}
-	}
-
-	// JSON 校验功能
-	const checkJson = () => {
-		try {
-			JSON.parse(checkInput.value)
-			checkResult.value = '✅ JSON 格式正确'
-			isValid.value = true
-		} catch (error) {
-			checkResult.value = `❌ JSON 格式错误: ${error instanceof Error ? error.message : '未知错误'}`
-			isValid.value = false
-		}
-	}
 
 	onMounted(() => {
 		console.log('options page mounted')
