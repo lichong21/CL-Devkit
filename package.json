@@ -8,7 +8,7 @@
     "dev:prepare": "esno scripts/prepare.ts",
     "dev:background": "vite build --config vite.config.background.ts --mode development --watch",
     "dev:content": "npm run build:content -- --mode development",
-    "dev:web": "vite --config vite.config.ts",
+    "dev:web": "vite --config vite.config.ts --mode development",
     "lint": "eslint . --ext js,ts,vue --report-unused-disable-directives",
     "build": "vue-tsc -b && vite build",
     "build:extension": "vue-tsc -b && vite build && npm run build:content && esno scripts/build-manifest.ts",
@@ -18,13 +18,14 @@
     "clean": "rimraf dist/*"
   },
   "dependencies": {
-    "@arco-design/web-vue": "^2.57.0",
     "chokidar": "^4.0.3",
     "chrome-types": "^0.1.353",
     "fs-extra": "^11.3.0",
+    "pinia": "^3.0.3",
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@arco-design/web-vue": "^2.57.0",
     "@eslint/js": "^9.28.0",
     "@types/node": "^24.0.3",
     "@typescript-eslint/eslint-plugin": "^8.34.0",

@@ -2,7 +2,7 @@ import { isDev, PORT } from '../scripts/utils.ts'
 
 const manifest = {
 	"manifest_version": 3,
-	"name": "Vite for Extension",
+	"name": "CL-Devkit",
 	"version": "1.0.0",
 	"description": "A Vite project for building Chrome Extensions",
 	"permissions": [

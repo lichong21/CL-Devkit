@@ -1,176 +1,83 @@
 <template>
 	<div class="options-page">
-		<!-- <div class="header">
-			<h1>{{ pageTitle }}</h1>
-			<p class="description">{{ pageDescription }}</p>
-		</div> -->
+		<div v-if="!currentKitType" class="options-page-header">
+			<Space  align="center">
+				<Button 
+					v-for="(optionItem, index) in optionsKitTypeList" 
+					:key="index"
+					type="primary"
+					@click="toggleKitType(optionItem)"
+					>{{ optionItem.label }}
+				</Button>
+			</Space>	
+		</div>
 
-		<JSONFormat v-if="currentAction === OPTIONS_TYPE.JSON_FORMAT" />
+		<div v-else class="options-page-header-anchor">
+			<icon-close-circle size="28" @click="handleListenKeyboardEsc" />
+		</div>
 
+		<div class="options-page-content">
+			<JsonFormat v-if="showJsonFormat" />
+		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
-	import { ref, onMounted } from 'vue'
-	import JSONFormat from './components/JSONFormat/index.vue'
-	import { OPTIONS_TYPE } from '../constant/index'
+	import { onMounted, computed, ref } from 'vue';
+	import { Button, Space } from '@arco-design/web-vue'
+	import JsonFormat from './components/jsonFormat/index.vue';
+	import { OPTIONS_KIT_TYPE } from './constant';
+	import { useListenKeyboardEsc } from '@/composables/listenKeyboardEsc'
 
-	const currentAction = ref<string>('')
-	const pageTitle = ref<string>('扩展选项')
-	const pageDescription = ref<string>('选择要使用的功能')
+	const optionsKitTypeList = computed(() => Object.values(OPTIONS_KIT_TYPE))
 
-	// JSON 压缩相关
-	const compressInput = ref<string>('')
-	const compressOutput = ref<string>('')
+	const currentKitType = ref('')
+	const toggleKitType = (kitType: { label: string; value: string; }) => {
+		currentKitType.value = kitType.value
+	}
+	const showJsonFormat = computed(() => currentKitType.value === OPTIONS_KIT_TYPE.jsonFormat.value)
 
-	// JSON 校验相关
-	const checkInput = ref<string>('')
-	const checkResult = ref<string>('')
-	const isValid = ref<boolean>(false)
+	onMounted(() => {
+		console.log('options page mounted', OPTIONS_KIT_TYPE)
+	})
 
-	// 加载Options页面参数
-	const loadOptionsData = () => {
-		if (typeof chrome !== 'undefined' && chrome.storage) {
-			chrome.storage.local.get(['optionsData'], (result) => {
-				if (result.optionsData) {
-					const { actionType, params } = result.optionsData
-					currentAction.value = actionType || ''
-					
-					if (params) {
-						pageTitle.value = params.title || '扩展选项'
-						pageDescription.value = params.description || '选择要使用的功能'
-					}
+	const handleListenKeyboardEsc = () =>  {
+		currentKitType.value = ''
+	}
 
-					// 清除已使用的数据
-					// chrome.storage.local.remove(['optionsData'])
-				}
-			})
+	useListenKeyboardEsc(handleListenKeyboardEsc)
+</script>
+
+<style scoped lang="scss">
+.options-page {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	background: #eee;
+
+	&-header {
+		margin-bottom: 30px;
+		text-align: center;
+		background: #ccc;
+		padding: 12px 20px;
+		border-radius: 12px;
+		position: relative;
+
+		&-anchor	 {
+			position: absolute;
+			right: 20px;
+			top: 12px;
+			cursor: pointer;
+
+			&:hover {
+				color: #4285f4;
+			}
 		}
 	}
 
-
-	onMounted(() => {
-		console.log('options page mounted')
-		loadOptionsData()
-	})
-</script>
-
-<style scoped>
-.options-page {
-	padding: 20px;
-	max-width: 800px;
-	margin: 0 auto;
-}
-
-.header {
-	margin-bottom: 30px;
-	text-align: center;
-}
-
-.header h1 {
-	font-size: 28px;
-	color: #333;
-	margin-bottom: 10px;
-}
-
-.description {
-	font-size: 16px;
-	color: #666;
-	margin: 0;
-}
-
-.content {
-	background: #f9f9f9;
-	border-radius: 8px;
-	padding: 20px;
-}
-
-.action-panel {
-	background: white;
-	border-radius: 6px;
-	padding: 20px;
-}
-
-.json-compress-panel,
-.json-check-panel {
-	display: flex;
-	flex-direction: column;
-	gap: 15px;
-}
-
-.input-textarea,
-.output-textarea {
-	width: 100%;
-	min-height: 120px;
-	padding: 12px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	font-family: 'Courier New', monospace;
-	resize: vertical;
-}
-
-.output-textarea {
-	background-color: #f5f5f5;
-}
-
-.action-button {
-	padding: 10px 20px;
-	background-color: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 14px;
-}
-
-.action-button:hover {
-	background-color: #0056b3;
-}
-
-.check-result {
-	padding: 10px;
-	border-radius: 4px;
-	font-weight: bold;
-}
-
-.check-result.valid {
-	background-color: #d4edda;
-	color: #155724;
-	border: 1px solid #c3e6cb;
-}
-
-.check-result.invalid {
-	background-color: #f8d7da;
-	color: #721c24;
-	border: 1px solid #f5c6cb;
-}
-
-.default-panel {
-	text-align: center;
-}
-
-.feature-list {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-	gap: 20px;
-	margin-top: 30px;
-}
-
-.feature-item {
-	background: white;
-	padding: 20px;
-	border-radius: 6px;
-	box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.feature-item h4 {
-	margin: 0 0 10px 0;
-	color: #333;
-}
-
-.feature-item p {
-	margin: 0;
-	color: #666;
-	font-size: 14px;
+	&-content {
+		width: 100%;
+		height: 100%;
+	}
 }
 </style>

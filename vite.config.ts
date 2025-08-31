@@ -11,13 +11,26 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === 'development'
 
   return {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, 'src')
+      }
+    },
     plugins: [vue(), UnoCSS()],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@arco-design/web-vue/dist/arco.css";`
+        }
+      }
+    },
     // 开发服务器配置
     server: {
       port: PORT,
       open: false,
     },
     mode: isDev ? 'development' : 'production',
+		sourcemap: isDev,
     build: {
       outDir: 'dist',
       rollupOptions: {
