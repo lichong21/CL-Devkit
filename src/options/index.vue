@@ -18,6 +18,7 @@
 
 		<div class="options-page-content">
 			<JsonFormat v-if="showJsonFormat" />
+			<TimeStamps v-if="showTimeStamps" />
 		</div>
 	</div>
 </template>
@@ -26,6 +27,7 @@
 	import { onMounted, computed, ref } from 'vue';
 	import { Button, Space } from '@arco-design/web-vue'
 	import JsonFormat from './components/jsonFormat/index.vue';
+	import TimeStamps from './components/timeStamps/index.vue';
 	import { OPTIONS_KIT_TYPE } from './constant';
 	import { useListenKeyboardEsc } from '@/composables/listenKeyboardEsc'
 
@@ -36,16 +38,17 @@
 		currentKitType.value = kitType.value
 	}
 	const showJsonFormat = computed(() => currentKitType.value === OPTIONS_KIT_TYPE.jsonFormat.value)
-
-	onMounted(() => {
-		console.log('options page mounted', OPTIONS_KIT_TYPE)
-	})
+	const showTimeStamps = computed(() => currentKitType.value === OPTIONS_KIT_TYPE.timeFormat.value)
 
 	const handleListenKeyboardEsc = () =>  {
 		currentKitType.value = ''
 	}
 
 	useListenKeyboardEsc(handleListenKeyboardEsc)
+	
+	onMounted(() => {
+		console.log('options page mounted', OPTIONS_KIT_TYPE)
+	})
 </script>
 
 <style scoped lang="scss">

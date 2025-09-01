@@ -21,6 +21,7 @@
     "@vueuse/core": "^13.9.0",
     "chokidar": "^4.0.3",
     "chrome-types": "^0.1.353",
+    "dayjs": "^1.11.18",
     "fs-extra": "^11.3.0",
     "pinia": "^3.0.3",
     "vue": "^3.5.13"
