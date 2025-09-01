@@ -53,7 +53,7 @@
 	width: 100vw;
 	height: 100vh;
 	overflow: hidden;
-	background: #eee;
+	background: #fff;
 
 	&-header {
 		margin-bottom: 30px;

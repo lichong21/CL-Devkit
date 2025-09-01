@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { formatJson, formatJsonObjToTreeData, isJsonStr } from '@/utils/common';
+import { formatJson, formatJsonObjToTreeData1, isJsonStr } from '@/utils/common';
 import { JSON_STR } from '@/constant/mockData'
 
 const handleStoreFn = () => {
@@ -25,7 +25,7 @@ const handleStoreFn = () => {
 		if (jsonObj && jsonStr) {
 			jsonTextStr.value = jsonStr;
 			jsonTextObj.value = jsonObj;
-			jsonTreeData.value = formatJsonObjToTreeData(jsonObj);
+			jsonTreeData.value = formatJsonObjToTreeData1(jsonObj);
 			isValidJSONStr.value = true;
 		} else {
 			isValidJSONStr.value = false;
