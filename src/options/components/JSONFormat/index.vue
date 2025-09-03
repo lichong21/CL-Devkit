@@ -11,6 +11,10 @@
 					{{ isValidJSONStr ? '合法' : '不合法' }}
 				</Button>
 				<Button type="primary" size="small" @click="handleFormatJSON">格式化</Button>
+				<Button type="primary" size="small" @click="handleAddJSONTextToChaceList">添加到缓存</Button>
+				<Button type="primary" size="small" @click="handleOpenCacheListModal">缓存列表</Button>
+
+				<CacheListModal />
 			</Space>
 		</div>
 
@@ -32,6 +36,8 @@
 	import { Button, Space } from '@arco-design/web-vue'
 	import CodeBlockLeft from './components/CodeBlockLeft.vue'
 	import CodeBlockRight from './components/CodeBlockRight.vue'
+	import CacheListModal from './components/CacheListModal.vue'
+
 	import { useJSONFormatStore } from '@/options/stores/useJSONFormatStore'
 
 	const jsonFormatStore = useJSONFormatStore()
@@ -45,8 +51,17 @@
 		jsonFormatStore.formatJSONTextStr(jsonTextStr.value)
 	}
 
+	const handleAddJSONTextToChaceList = () => {
+		jsonFormatStore.appendJSONTextToChaceList(jsonTextStr.value)
+	}
+
+	const handleOpenCacheListModal = () => {
+		jsonFormatStore.toggleCacheListModalVisible(true)
+	}
+
 	onMounted(() => {
 		console.log('json format page mounted')
+		jsonFormatStore.getJSONTextChaceList()
 	})
 </script>
 

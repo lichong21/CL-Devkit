@@ -68,3 +68,5 @@ export function formatJsonObjToTreeData1(jsonObj: Record<string, any> | any[], l
 
 	return treeData
 }
+
+export const generateId = () => Math.random().toString(36).slice(2)
